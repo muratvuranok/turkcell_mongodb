@@ -1,29 +1,42 @@
-// db simulation
+
+# Örnek JSON Yapıları ve Açıklamaları
+
+## 1. **MongoDB Simülasyonu**
+### **Açıklama**: 
+Bu yapı, `people` adlı bir MongoDB koleksiyonunu temsil eder. Her belge bir kişiyi temsil eder ve isim, yaş, iletişim bilgileri ve hobiler gibi detayları içerir.
+```json
 {
-    "people": [ // collection -> table
+    "people": [
         {
             "name": "murat",
             "surname": "vuranok",
-            "age": 40, // number - sayısal
+            "age": 40,
             "phone": "+905323520997",
-            "email": "muratvuranok@hotmail.com", // string - metinsel
-            "active": true, // boolean - mantıksal 
+            "email": "muratvuranok@hotmail.com",
+            "active": true,
             "address": {
                 "city": "istanbul",
                 "district": "kadiköy",
                 "street": "bahariye"
-            }, // object - nesne
+            },
             "hobbies": [
                 "swimming",
                 "reading",
                 "traveling"
-            ] // array - dizi
+            ]
         }
     ]
 }
-// API Response
+```
+
+---
+
+## 2. **API Yanıtı**
+### **Açıklama**: 
+Başarılı bir kullanıcı sorgusunda dönen API yanıtı. Başarısızlık durumunda hata mesajı döner.
+```json
 {
-    "status": 200, // 4(kullanıcı) - 5(server)
+    "status": 200,
     "data": {
         "userId": 1,
         "name": "murat",
@@ -32,15 +45,22 @@
         "phone": "+905323520997",
         "email": "murat@vuranok.com"
     },
-    "message": "Success" // Error
+    "message": "Success"
 }
-// Setting file
+```
+
+---
+
+## 3. **Yapılandırma Dosyası**
+### **Açıklama**: 
+Veritabanı, loglama ve JWT ayarlarını içeren bir yapılandırma dosyası. Veritabanı şifresi güvenlik için şifrelenmelidir.
+```json
 {
     "database": {
-        "host": "localhost", // ip number
+        "host": "localhost",
         "port": 5432,
         "user": "admin",
-        "password": "password123" // bu kısım mutlaka şifrelenmelidir.
+        "password": "password123"
     },
     "logging": {
         "level": "info",
@@ -50,14 +70,28 @@
         "secretKey": "turkcell"
     }
 }
+```
 
+---
+
+## 4. **Hata Yanıtı**
+### **Açıklama**: 
+404 Not Found hatasını temsil eden standart bir hata nesnesi.
+```json
 {
     "error": {
         "code": 404,
         "message": "Not Found"
     }
 }
-// client
+```
+
+---
+
+## 5. **İçerik Örneği**
+### **Açıklama**: 
+Başlık, yazar ve etiketler gibi meta verilerle içerik yapısını temsil eder.
+```json
 {
     "title": "MongoDB",
     "content": "Türkcell MongoDb Eğitimi",
@@ -70,12 +104,15 @@
         "database",
         "nosql"
     ]
-    // "author": {
-    //     "name": "murat",
-    //     "surname": "vuranok"
-    // }
 }
-// Grafik Verileri
+```
+
+---
+
+## 6. **Grafik Verileri**
+### **Açıklama**: 
+Grafik türü, etiketler ve veri seti özelliklerini içeren görselleştirme yapılandırması.
+```json
 {
     "labels": [
         "January",
@@ -105,9 +142,21 @@
         }
     ]
 }
+```
 
+---
+
+## 7. **Token ve Kimlik Doğrulama**
+### **Açıklama**: 
+Token tabanlı kimlik doğrulama için örnek bir JSON yapısı. JWT ve yenileme token'larını içerir.
+```json
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
     "expiresIn": 3600
 }
+```
+
+---
+
+Her bir JSON yapısı, veritabanı şeması simülasyonu, API yanıtları, yapılandırma dosyaları ve görselleştirme verileri gibi farklı kullanım senaryolarını temsil eder. Uygulamalarınızda bu yapıları referans olarak kullanabilirsiniz.
