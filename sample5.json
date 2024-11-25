@@ -1,0 +1,48 @@
+{
+    "students": [
+        {
+            "_id": 1,
+            "name": "murat",
+            "surname": "vuranok"
+        },
+        {
+            "_id": 2,
+            "name": "ahmet",
+            "surname": "yılmaz"
+        }
+    ],
+    "courses": [
+        {
+            "_id": 1,
+            "name": "Matematik",
+            "credit": 4
+        },
+        {
+            "_id": 2,
+            "name": "Fizik",
+            "credit": 3
+        },
+        {
+            "_id": 3,
+            "name": "Kimya",
+            "credit": 3
+        }
+    ],
+    "studets_courses": [
+        {
+            "_id": 1,
+            "student_id": 1,
+            "course_id": 1
+        },
+        {
+            "_id": 2,
+            "student_id": 1,
+            "course_id": 2
+        },
+        {
+            "_id": 3,
+            "student_id": 2,
+            "course_id": 1
+        }
+    ]
+}

@@ -1,0 +1,42 @@
+{
+    "categories": [
+        {
+            "id": 1,
+            "categoryName": "Electronics",
+            "description": "Devices and gadgets",
+            "products": [
+                {
+                    "id": 101,
+                    "productName": "Smartphone",
+                    "price": 699,
+                    "unitsInStock": 50
+                },
+                {
+                    "id": 102,
+                    "productName": "Laptop",
+                    "price": 900,
+                    "unitsInStock": 30
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "categoryName": "Home Appliances",
+            "description": "Appliances for daily use",
+            "products": [
+                {
+                    "id": 201,
+                    "productName": "Cleaner",
+                    "price": 150,
+                    "unitsInStock": 20
+                },
+                {
+                    "id": 202,
+                    "productName": "Air Conditioner",
+                    "price": 400,
+                    "unitsInStock": 15
+                }
+            ]
+        }
+    ]
+}

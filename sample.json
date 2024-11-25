@@ -1,0 +1,113 @@
+// db simulation
+{
+    "people": [ // collection -> table
+        {
+            "name": "murat",
+            "surname": "vuranok",
+            "age": 40, // number - sayısal
+            "phone": "+905323520997",
+            "email": "muratvuranok@hotmail.com", // string - metinsel
+            "active": true, // boolean - mantıksal 
+            "address": {
+                "city": "istanbul",
+                "district": "kadiköy",
+                "street": "bahariye"
+            }, // object - nesne
+            "hobbies": [
+                "swimming",
+                "reading",
+                "traveling"
+            ] // array - dizi
+        }
+    ]
+}
+// API Response
+{
+    "status": 200, // 4(kullanıcı) - 5(server)
+    "data": {
+        "userId": 1,
+        "name": "murat",
+        "surname": "vuranok",
+        "age": 40,
+        "phone": "+905323520997",
+        "email": "murat@vuranok.com"
+    },
+    "message": "Success" // Error
+}
+// Setting file
+{
+    "database": {
+        "host": "localhost", // ip number
+        "port": 5432,
+        "user": "admin",
+        "password": "password123" // bu kısım mutlaka şifrelenmelidir.
+    },
+    "logging": {
+        "level": "info",
+        "path": "/var/log/app.log"
+    },
+    "jwt": {
+        "secretKey": "turkcell"
+    }
+}
+
+{
+    "error": {
+        "code": 404,
+        "message": "Not Found"
+    }
+}
+// client
+{
+    "title": "MongoDB",
+    "content": "Türkcell MongoDb Eğitimi",
+    "author": "murat vuranok",
+    "image": "https://www.turkcell.com.tr/.../mongodb.jpg",
+    "createdAt": "2021-09-01T10:00:00Z",
+    "rate": 5,
+    "tags": [
+        "mongodb",
+        "database",
+        "nosql"
+    ]
+    // "author": {
+    //     "name": "murat",
+    //     "surname": "vuranok"
+    // }
+}
+// Grafik Verileri
+{
+    "labels": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July"
+    ],
+    "chartType": "pie",
+    "datasets": [
+        {
+            "label": "My First Dataset",
+            "data": [
+                65,
+                59,
+                80,
+                81,
+                56,
+                55,
+                40
+            ],
+            "fill": false,
+            "borderColor": "rgb(75, 192, 192)",
+            "lineTension": 0.1
+        }
+    ]
+}
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+    "expiresIn": 3600
+}

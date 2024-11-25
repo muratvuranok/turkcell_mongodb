@@ -1,0 +1,10 @@
+{
+    "eng": {
+        "greeting": "Hello",
+        "farewell": "Goodbye"
+    },
+    "tr": {
+        "greeting": "Merhaba",
+        "farewell": "Hoşça kal"
+    }
+}

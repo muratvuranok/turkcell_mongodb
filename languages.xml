@@ -1,0 +1,10 @@
+<lang>
+    <eng>
+        <greeting>Hello</greeting>
+        <farewell>Goodbye</farewell>
+     </eng> 
+     <tr>
+        <greeting>Merhaba</greeting>
+        <farewell>Hoşça kal</farewell>
+     </tr>
+</lang>

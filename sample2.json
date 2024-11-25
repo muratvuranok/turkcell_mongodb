@@ -1,0 +1,21 @@
+{
+    "categories": [
+        {
+            "id": 1,
+            "name": "pazarlma",
+            "description": "pazarlama ürünleri",
+            "products": [
+                {
+                    "id": 10,
+                    "name": "Telefon",
+                    "price": 10000
+                },
+                {
+                    "id": 11,
+                    "name": "Telefon şerj",
+                    "price": 100
+                }
+            ]
+        }
+    ]
+}

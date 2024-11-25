@@ -1,0 +1,43 @@
+// database -> northwind
+{
+    "categories": [
+        {
+            "id": 1,
+            "name": "beverages",
+            "description": "drinks"
+        },
+        {
+            "id": 2,
+            "name": "food",
+            "description": "foods"
+        },
+        {
+            "id": 3,
+            "name": "electronics",
+            "description": "devices and gadgets"
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "name": "cola",
+            "price": 2.5,
+            "unitsInStock": 100,
+            "categoryId": 1
+        },
+        {
+            "id": 2,
+            "name": "chips",
+            "price": 1.5,
+            "unitsInStock": 200,
+            "categoryId": 1
+        },
+        {
+            "id": 3,
+            "name": "smartphone",
+            "price": 699,
+            "unitsInStock": 50,
+            "categoryId": 3
+        }
+    ]
+}

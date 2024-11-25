@@ -1,0 +1,46 @@
+{
+    "users": [
+        {
+            "_id": 1,
+            "name": "",
+            "surname": "",
+            "birthDate": "",
+            "gender": "",
+            "emailOrPhone": "",
+            "password": "",
+            "profile": {
+                "photo": "",
+                "bio": "",
+                "location": "",
+                "website": "",
+                "followers": [],
+                "followings": [],
+                "savedPosts": []
+            }
+        }
+    ],
+    "kullanicilar": [
+        {
+            "_id": 1, // identity id
+            "name": "",
+            "surname": "",
+            "birthDate": "",
+            "gender": "",
+            "emailOrPhone": "",
+            "password": ""
+        }
+    ],
+    "profiles": [
+        {
+            "_id": 1,
+            "user_id": 1,
+            "photo": "",
+            "bio": "",
+            "location": "",
+            "website": "",
+            "followers": [],
+            "followings": [],
+            "savedPosts": []
+        }
+    ]
+}

@@ -1,0 +1,82 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "name": "Ahmet",
+            "surname": "Yılmaz",
+            "courses": [
+                1,
+                2
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Ayşe",
+            "surname": "Demir",
+            "courses": [
+                2,
+                3
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Mehmet",
+            "surname": "Çelik",
+            "courses": [
+                1,
+                3
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Fatma",
+            "surname": "Kaya",
+            "courses": [
+                1,
+                2,
+                3
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Ali",
+            "surname": "Şahin",
+            "courses": [
+                3
+            ]
+        }
+    ],
+    "courses": [
+        {
+            "id": 1,
+            "name": "M101 - Matematik",
+            "credit": 4,
+            "students": [
+                1,
+                3,
+                4
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Fizik",
+            "credit": 3,
+            "students": [
+                1,
+                2,
+                4
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Kimya",
+            "credit": 3,
+            "students": [
+                2,
+                3,
+                4,
+                5
+            ]
+        }
+    ]
+}

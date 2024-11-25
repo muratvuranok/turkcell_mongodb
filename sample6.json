@@ -1,0 +1,39 @@
+{
+    "students": [
+        {
+            "id": 1,
+            "name": "Ahmet",
+            "surname": "Yılmaz",
+            "identityId": 101
+        },
+        {
+            "id": 2,
+            "name": "Ayşe",
+            "surname": "Demir",
+            "identityId": 102
+        },
+        {
+            "id": 3,
+            "name": "Mehmet",
+            "surname": "Çelik",
+            "identityId": 103
+        }
+    ],
+    "identities": [
+        {
+            "id": 101,
+            "nationalId": "12345678901",
+            "birthDate": "2000-01-15"
+        },
+        {
+            "id": 102,
+            "nationalId": "98765432109",
+            "birthDate": "2001-05-23"
+        },
+        {
+            "id": 103,
+            "nationalId": "45612378900",
+            "birthDate": "1999-12-30"
+        }
+    ]
+}

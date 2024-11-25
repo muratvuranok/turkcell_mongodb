@@ -1,0 +1,122 @@
+{
+    "results": [
+        {
+            "gender": "male",
+            "name": {
+                "title": "Mr",
+                "first": "Sune",
+                "last": "Hetland"
+            },
+            "location": {
+                "street": {
+                    "number": 2551,
+                    "name": "Lindbäckveien"
+                },
+                "city": "Follafoss",
+                "state": "Oppland",
+                "country": "Norway",
+                "postcode": "5690",
+                "coordinates": {
+                    "latitude": "40.8656",
+                    "longitude": "-115.0814"
+                },
+                "timezone": {
+                    "offset": "-8:00",
+                    "description": "Pacific Time (US & Canada)"
+                }
+            },
+            "email": "sune.hetland@example.com",
+            "login": {
+                "uuid": "d524828d-670d-433e-90e3-f83cd67a2abf",
+                "username": "tinydog982",
+                "password": "000007",
+                "salt": "zBaYmp6L",
+                "md5": "7645bebe51f3da96c938678b0522af6c",
+                "sha1": "c45b2f2c94e5f5d47ac807b879f7df361ed3b6e7",
+                "sha256": "16ef41240b1d24d6cb5f322e326a7b5c5be4135c7d26b8e45cd05279d836841d"
+            },
+            "dob": {
+                "date": "1973-06-19T21:15:27.812Z",
+                "age": 51
+            },
+            "registered": {
+                "date": "2006-03-13T09:18:31.119Z",
+                "age": 18
+            },
+            "phone": "74461679",
+            "cell": "98578599",
+            "id": {
+                "name": "FN",
+                "value": "19067315114"
+            },
+            "picture": {
+                "large": "https://randomuser.me/api/portraits/men/78.jpg",
+                "medium": "https://randomuser.me/api/portraits/med/men/78.jpg",
+                "thumbnail": "https://randomuser.me/api/portraits/thumb/men/78.jpg"
+            },
+            "nat": "NO"
+        },
+        {
+            "gender": "male",
+            "name": {
+                "title": "Mr",
+                "first": "Sune",
+                "last": "Hetland"
+            },
+            "location": {
+                "street": {
+                    "number": 2551,
+                    "name": "Lindbäckveien"
+                },
+                "city": "Follafoss",
+                "state": "Oppland",
+                "country": "Norway",
+                "postcode": "5690",
+                "coordinates": {
+                    "latitude": "40.8656",
+                    "longitude": "-115.0814"
+                },
+                "timezone": {
+                    "offset": "-8:00",
+                    "description": "Pacific Time (US & Canada)"
+                }
+            },
+            "email": "sune.hetland@example.com",
+            "login": {
+                "uuid": "d524828d-670d-433e-90e3-f83cd67a2abf",
+                "username": "tinydog982",
+                "password": "000007",
+                "salt": "zBaYmp6L",
+                "md5": "7645bebe51f3da96c938678b0522af6c",
+                "sha1": "c45b2f2c94e5f5d47ac807b879f7df361ed3b6e7",
+                "sha256": "16ef41240b1d24d6cb5f322e326a7b5c5be4135c7d26b8e45cd05279d836841d"
+            },
+            "dob": {
+                "date": "1973-06-19T21:15:27.812Z",
+                "age": 51
+            },
+            "registered": {
+                "date": "2006-03-13T09:18:31.119Z",
+                "age": 18
+            },
+            "phone": "74461679",
+            "cell": "98578599",
+            "id": {
+                "name": "FN",
+                "value": "19067315114"
+            },
+            "picture": {
+                "large": "https://randomuser.me/api/portraits/men/78.jpg",
+                "medium": "https://randomuser.me/api/portraits/med/men/78.jpg",
+                "thumbnail": "https://randomuser.me/api/portraits/thumb/men/78.jpg"
+            },
+            "nat": "NO"
+        }
+    ],
+    "info": {
+        "seed": "15314dd2c285a86e",
+        "results": 1,
+        "page": 1,
+        "version": "1.4"
+    }
+}
