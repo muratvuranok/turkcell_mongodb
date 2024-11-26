@@ -67,14 +67,23 @@ Kategorisi Western olan filmlerin ortalama süresi nedir?
             }
         },
         {
-            $project: {  
-            // select title, year, movie_comments.text, movie_comments.email from
-                title: 1,
-                genres: 1,
-                year: 1,
+            $group:{
+                _id: null,
+                averageDurationTime: { $avg : "$runtime" },// runtime alanına göre ortalamasını hesaplar
+                movies: { $push: "$$ROOT" } // Tüm belgeleri saklar, $push opersatörü, MongoDB'nin $group aşamasındaki bir group içerisinde yer alan değerlerin bir listesini oluşturmak için kullanılır. $$ROOT ise, mevcut belgenin tamamını ifade eder. Yani $push: "$$ROOT" ifadesi, her belgeyi olduğu gibi bir diziye ekler
+            }
+        },
+        {
+            $project: {   
                 _id: 0,
-                "movie_comments.text": 1,
-                "movie_comments.email": 1
+                averageDurationTime: 1,
+                movies: { 
+                    title: 1,
+                    genres: 1,
+                    year: 1,
+                    runtime: 1,
+                    "movie_comments.text": 1
+                }
             }
         }
     }
