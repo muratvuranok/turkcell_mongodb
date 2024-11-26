@@ -3,3 +3,47 @@ mongosh "mongodb+srv://cluster0.jf2m2.mongodb.net/" --apiVersion 1 --username mu
 
 
 mongodb+srv://muratvuranok:wUDEHdczflcZI65x@cluster0.jf2m2.mongodb.net/
+
+
+
+Son 10 yıl içerisinde (2014 sonrası) yapılmış filmleri ve bu filmlere ait olan yorumların listelenmesi
+
+
+1. section -> $match   : filtreleme
+2. section -> $lookup  : join
+3. section -> $project : output
+
+[
+    {
+        $match: {
+            year: {
+                $gte: 2014
+            }
+        }
+    },
+    {
+        $lookup: {
+ 
+            /*
+                from         -> target collection(table)
+                localField   -> local join field
+                foreignField -> target join field
+                as           -> name for the result
+            */
+
+            from: "comments",
+            localField: "_id",
+            foreignField: "movie_id",
+            as: "movie_comments"
+        }
+    },
+    {
+        $project: {
+                title: 1,
+                year: 1,
+                _id: 0,
+                "movie_comments.text": 1,
+                "movie_comments.email": 1
+        }
+    }
+]
