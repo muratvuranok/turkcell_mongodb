@@ -304,3 +304,51 @@ Filmlerin duration alanına göre bir süre kategorisi ekleyelim, Eğer filmin s
         }
     }
 ]
+
+
+Merge Kullanımı
+
+$limit -> gösterilecek olan kayıt sayısını belirler.
+$merge -> işlem sonucunu farklı bir collection'a ekleme işlemi yapar
+    - into "movies_summary" -> verilen isimdeki collection'a ekleme işlemi yapar.
+    - whenMatched           -> eğer aynı kimliğe(_id) sahip olan bir belge var ise, bu belgeyi birleştir. (var olan datayı , yeni bilgileri ile günceller)
+    - whenNotMatched: "insert" -> Eğer belge "movies_summary" koleksiyonunda yok ise yeni bir belge olarak ekleme işlemi yapar
+
+
+[ 
+    {
+        $project: {
+            _id: 0,
+            title: 1,
+            year: 1,
+            imdbRating: "$imdb.rating",
+            summary: {
+                $concat: [
+                    "$title", 
+                    " - (", 
+                    {
+                        $toString: "$year" 
+                    },
+                    ") - IMDB: ", 
+                    {
+                        $toString: $imdb.rating"
+                    }
+                ]
+            }
+        },
+        {
+            $limit: {
+                1000
+            }
+        },
+        {
+            $merge: {
+                into: "movies_summary", // SELECT CONCAT('',''), ProductName AS UrunAdi , (Price * Quantity) AS TotalPrice INTO Urunler FROM Products
+                whenMatched: "merge",
+                whenNotMatched: "insert"
+            }
+        }
+    }
+]
+
+Cast oyuncularının isimlerini küçük harf olarak yazınız
