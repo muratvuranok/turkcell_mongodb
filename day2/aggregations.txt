@@ -352,3 +352,75 @@ $merge -> işlem sonucunu farklı bir collection'a ekleme işlemi yapar
 ]
 
 Cast oyuncularının isimlerini küçük harf olarak yazınız
+
+[
+    {
+        $project: {
+            _id: 0,
+            title: 1, 
+            lowerCaseCast: {
+                $map: {
+                    input : "$cast",
+                    as: "actor",
+                    in: {
+                        $toLower: "$$actor"
+                    }
+                }
+            }
+        }
+    },
+    {
+        $limit:{100}
+    }
+]
+
+[
+    {
+        $project: {
+            _id: 0,
+            title: 1, 
+            joinCast: {
+                $reduce:{
+                    input: {
+                        $map: {
+                            input : "$cast",
+                            as: "actor",
+                            in: {
+                                $toLower: "$$actor"
+                            }
+                        }
+                    },
+                    initialValue: "",
+                    in: {
+                        $concat: [
+                            "$$value",
+                            {
+                                $cond: {
+                                    if: {$eq: ["$$value", ""]},
+                                    then: "",
+                                    else: " - "
+                                }
+                            },
+                            "$$this"
+                        ]
+                    }
+                }
+            },
+            lowerCast: {
+                $map: {
+                    input : "$cast",
+                    as: "actor",
+                    in: {
+                        $toLower: "$$actor"
+                    }
+                }
+            }
+        }
+    },
+    {
+        $limit:{100}
+    }
+]
+
+
+Cast oyuncularından ismi jane olan tüm oyuncuların ismini canan olarak değiştiriniz.
