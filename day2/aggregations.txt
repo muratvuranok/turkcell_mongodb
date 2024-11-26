@@ -1,2 +1,5 @@
 wUDEHdczflcZI65x
 mongosh "mongodb+srv://cluster0.jf2m2.mongodb.net/" --apiVersion 1 --username muratvuranok
+
+
+mongodb+srv://muratvuranok:wUDEHdczflcZI65x@cluster0.jf2m2.mongodb.net/
