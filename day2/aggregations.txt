@@ -88,3 +88,219 @@ Kategorisi Western olan filmlerin ortalama süresi nedir?
         }
     }
 ]
+
+
+Türüne göre filmlerin ortalama süresini hesaplayınız
+
+
+$unwind  -> bir dizi (array) alanını çözmek için kullanılır. genres dizisi içerisinde yer alan her bir eleman için ayrı bir belge oluşturur.
+
+[
+    {
+        $unwind: { path: "$genres"}
+    },
+    {
+        $group: {
+            _id: "$genres",
+            avgTime : {
+                $avg: "$runtime"
+            }
+        }
+    },
+    {
+        $sort:{
+            avgTime: -1
+        }
+    }
+]
+
+
+Action türünde yer alan filmlerin, en uzun süresi nedir?
+[
+    {
+        $match: {
+            genres: "Action"
+        }
+    },
+    {
+        $group: {
+            _id: null,
+            maxTime: {
+                $max: "$runtime"
+            }
+        }
+    }
+]
+
+
+Comedy türünde yer alan filmlerin, ortalama IMDB puanını hesaplayınız
+
+[
+    {
+        $match: {
+            genres: "Comedy"
+        }
+    },
+    {
+        $group: {
+            _id: null,
+            avgRating: {
+                $avg: "$imdb.rating"
+            }
+        }
+    },
+    {
+        $project:{
+            _id: 0, 
+            avgRating: 1
+        }
+    }
+]
+
+IMDB puanını düz bir sayıya yuvarlama işlemi
+$addFields    -> yeni bir alan eklemek veya mevcut alanı dönüştürmek için kullanılır.
+roundedRating -> yeni eklenen alan adı
+$round (operatörü) -> bir değeri belirtilen basamağa kadar yuvarlar.
+- 0 : Tam sayıya yuvarlar
+- 1 : virgülden sonra 1 ondalık basamak bırakır
+- 2 : virgülden sonra 2 ondalık basamak bırakır
+
+
+NOT: $project belirmediğiniz sürece, sorguya tüm alanlar dahil olacaktır.
+
+SELECT Baslik = title , roundedRating FROM movies
+SELECT title AS Baslik , roundedRating FROM movies
+SELECT title Baslik , roundedRating FROM movies
+
+[
+    {
+        $addFields: {
+            roundedRating: {
+                $round: ["$imdb.rating", 0]
+            }
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            baslik = "title",
+            roundedRating: 1
+        }
+    }
+]
+
+Filmlerin süresni saat ve dakika olarak gösteriniz. ( addFileds, hours, minutes )
+
+[
+    {
+        $addFields: {
+            hours: {
+                $floor: {
+                    $divide: ["$runtime" , 60]
+                }
+            },
+            minutes: {
+                $mod: ["$runtime", 60]
+            }
+        }
+    },
+    {
+        $project: { 
+            /*
+                specifications: The fileds to inclue or exclude
+            */ 
+            _id: 0,
+            title: 1,
+            runtime: 1,
+            hours: 1,
+            minutes: 1
+        }
+    }
+]
+
+Filmlerin duration alanına göre bir süre kategorisi ekleyelim, Eğer filmin süresi 120 dk ve üzeri ise "Long" değilse "Short" ibaresi yer alsın
+
+
+[
+    {
+        $addFields: {
+            durationCategory: {
+                $cond: {
+                    if: { $gte: ["$runtime", 120] },
+                    then: "Long",
+                    else: "Short"
+                }
+            }
+        }
+    },
+    {
+        $sort: {
+            durationCategory: 1
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            title: 1,
+            runtime: 1,
+            durationCategory: 1,
+            poster: 1,
+            year: 1
+        }
+    }
+]
+
+
+[
+    {
+        $project: {
+            _id: 0,
+            title: 1,
+            runtime: 1,
+            poster: 1,
+            year: 1,
+            durationCategory: {
+                $cod: {
+                    if: {$gte: ["$runtime", 120]},
+                    then: "Long",
+                    else: "Short"
+                }
+            }
+        }
+    },
+    {
+        $sort: { durationCategory: 1 }
+    }
+]
+
+
+// Filmin bazı bilgilerini tek bir alan içerisinde göstermek, title - year - rating  summary adında bir filed oluşturunuz
+
+(addFiled summary -> $concat)
+
+
+[
+    {
+        $addFields: {
+            summary: {
+                $concat: [
+                    "$title", 
+                    " - (", 
+                    {
+                        $toString: "$year" 
+                    },
+                    ") - IMDB: ", 
+                    {
+                        $toString: $imdb.rating"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            summary: 1
+        }
+    }
+]
