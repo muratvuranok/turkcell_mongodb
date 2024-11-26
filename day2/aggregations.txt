@@ -424,3 +424,41 @@ Cast oyuncularının isimlerini küçük harf olarak yazınız
 
 
 Cast oyuncularından ismi jane olan tüm oyuncuların ismini canan olarak değiştiriniz.
+
+[
+    {
+        $project: {
+            _id: 0,
+            title: 1,
+            poster: 1,
+            modifiedCast: {
+                $map: {
+                    input: "#cast",
+                    as: "actor",
+                    in: {
+                        $cond: {
+                            if: {   
+                                $regexMatch: {
+                                    input: "$$actor",
+                                    regex: "^Jane" // Jane ile başlayan tüm kayıtlar, Canan olarak düzenlecektir
+                                }
+                            },
+                            then: {
+                                $concat: ["Canan", " ", { $arrayElemAt: [{ $split: ["$$actor", " "] }, 1] }]
+                            },
+                            else: "$$actor"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    {
+        $match: {
+            modifiedCast: {$in: ["/^Canan/"] } // "Canan" ile başlayanları filtreler
+        }
+    }
+]
+ 
+
+Her filmdeki genres dizisinde yer alan türleri birleştirip tek bir cümle(string) olarak yazdırınız.
