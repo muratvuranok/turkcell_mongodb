@@ -47,3 +47,35 @@ Son 10 yıl içerisinde (2014 sonrası) yapılmış filmleri ve bu filmlere ait 
         }
     }
 ]
+
+Kategorisi Western olan filmlerin ortalama süresi nedir?
+
+
+[
+    {
+        $match: {
+            year: { $gte: 2014 },
+            genres: "Western"  // birden fazla anahtar kelime yer alacak ise, in kullanabilirsiniz
+            // genres: { $in: ["Western", "Drama"] }
+        },
+        {
+            $lookup:{
+                from: "comments",
+                localField: "_id",
+                foreignField: "movie_id",
+                as: "movie_comments"
+            }
+        },
+        {
+            $project: {  
+            // select title, year, movie_comments.text, movie_comments.email from
+                title: 1,
+                genres: 1,
+                year: 1,
+                _id: 0,
+                "movie_comments.text": 1,
+                "movie_comments.email": 1
+            }
+        }
+    }
+]
