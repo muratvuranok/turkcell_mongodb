@@ -462,3 +462,205 @@ Cast oyuncularından ismi jane olan tüm oyuncuların ismini canan olarak deği�
  
 
 Her filmdeki genres dizisinde yer alan türleri birleştirip tek bir cümle(string) olarak yazdırınız.
+
+
+[
+    {
+        $project: {
+            _id: 0,
+            title: 1,
+            poster: 1,
+            combinedGenres: {
+                $reduce: {
+                    input: "$genres",
+                    initialValue: "",
+                    in: {
+                        $concat:["$$value", " ", "$$this"]
+                    }
+                }
+            }
+        }
+    }
+]
+
+1 Ocak 2015(dahil) tarihinden sonra yapılmış filmleri listeleyiniz.
+
+[
+    {
+        $match: {
+            released: {
+                $gte: new Date("2015-01-01")
+            }
+        }
+    },
+    {
+        $limit:{
+            100
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            released: 1,
+            title: 1
+        }
+    },
+    {
+        $sort:{
+            released: 1
+        }
+    }
+]
+
+Filmleri yayınlandıkları aya göre gruplama işlemi yapınız
+
+[
+    {
+        $group: {
+            _id: {
+                month: { $month: "$released"},
+                year: {$year: "$released"}
+            },
+            count: { $sum: 1 }
+        }
+    },
+    {
+        $sort: {
+            "_id.year": -1, //önce yıla göre sıralam işlemi
+            "_id.month": -1 // aynı yıl için aya göre sıralama yapsın
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            year: 1,
+            month: 1,
+            count: 1
+        }
+    }
+]
+
+Filmleri listelerken, haftanın hangi günü yapıldığını gösteriniz.
+
+[
+    {
+        $project: {
+            _id: 0,
+            title: 1,
+            poster: 1,
+            dayOfWeek: { // addFields işlemi
+                $dayOfWeek : "$released"
+            }
+        }
+    }
+]
+
+
+[
+    {
+        $project: {
+            _id: 0,
+            title: 1,
+            poster: 1,
+            dayOfWeek: {  
+                $dayOfWeek : "$released"
+            },
+            dayOfName: {  
+                $arrayElemAt: [
+                    [
+                        
+                        "Sunday",      // 7
+                        "Monday",      // 1
+                        "Tuesday",     // 2
+                        "Wednesday",   // 3
+                        "Thursday",    // 4
+                        "Friday",      // 5
+                        "Saturday",    // 6
+                    ]
+                ], 
+                {
+                    $subtract: [{$dayOfWeek: "$released"}, 0]
+                }
+            }
+        }
+    }
+]
+
+
+bucket -> belgeleri belirli sınırlar (boundaries) dahilinde gruplandırmak için kullanılır. Her bir belge, groupby ile belirtilen alana göre sınırlar içerisine atar.
+
+bucket Kullanımı
+
+
+boundaries: [0, 5, 7, 8, 9, 10]
+
+0 < imdb.rating < 5 bir groupla 
+5 <= imdb.rating < 7 bir groupla 
+7 <= imdb.rating < 8 bir groupla 
+8 <= imdb.rating < 9 bir groupla 
+9 <= imdb.rating < 10 bir groupla 
+ bir belgenin rating kısmı yukarıdaki şartlara uymuyor ise, other olarak gruplanacak
+
+[
+    {
+        $bucket: {
+            groupBy: "$imdb.rating",
+            boundaries: [0, 5, 7, 8, 9, 10],
+            default:"Other",
+            output: {
+                count: {
+                    $sum: 1
+                },
+                titles: {
+                    $push: "$title"
+                }
+            }
+        }
+    },
+    {
+        $out: {
+            db: "sample_nflix",
+            coll: "groupByImdb" 
+            // timeseries: {
+            //     timeField: "field",
+            //     bucketMaxSpanSeconds: "number",
+            //     granularity: "granularity"
+            // }
+        }
+    }
+]
+
+
+Out sample
+
+[
+    {
+        $match: {
+            "imdb.rating": {
+                $gte: 8
+            }
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            baslik: "$title", 
+            resim: "$poster",
+            arsiv: "$imdb",
+            yil: "$year",
+            yayinTarihi:"$released"
+        }
+    },
+    {
+        $sort: "imdb.rating"
+    },
+    {
+        $limit: 100
+    },
+    {
+        $out: {
+            db: "sample_mflix",
+            coll: "topMovies"
+        }
+    }
+]
