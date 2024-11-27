@@ -1,0 +1,21 @@
+https://www.mongodb.com/try/download/database-tools  mongoimport kullanımı için indirmeniz gereklidir.
+
+SQL Server'dan veriyi dışarı aktarım için, csv , json formatında alabilirsiniz. Excel içerisinde db connection vererek xlsx çıktısıda alabilirsiniz. Export Data Wizard kullanarak'da farklı formatlarda alabilirsiniz.
+
+
+SELECT TOP 50 * FROM Customers FOR JSON PATH
+
+
+mongoimport --uri mongodb://localhost:27017 --db targetDb --collection customers --file C:\Users\murat\OneDrive\Desktop\TurkcellEdu\turkcell_mongodb\day3\customer.json --jsonArray
+
+
+--uri -> mongodb connection
+--db  -> hedef database
+--collection -> hedef collection
+--file -> veririnin bulunduğu JSON veya CSV dosyasının yolu
+
+
+
+CSV dosyasının import edilmesi
+
+mongoimport --uri mongodb://localhost:27017 --db targetDatabase --collection customers --type csv --file C:\Users\murat\OneDrive\Desktop\TurkcellEdu\turkcell_mongodb\day3\customers.csv --headerline

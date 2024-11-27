@@ -1,0 +1,179 @@
+use testDB
+ 
+for (let i = 0; i < 1000000; i++) {
+    db.product.insertOne({
+        name: `Product ${i}`,
+        category: i % 10 === 0 ? 'Electronics' : 'Clothing',
+        price: Math.random() * 1000,
+        stock: Math.floor(Math.random() * 100),
+        createdAt: new Date()
+    });
+}
+
+
+
+index olmadan sorgu çalıştırma
+
+
+db.product.find({category: 'Electronics'}).explain("executionStats")
+
+Beklenen çıktı 
+COLLSCAN            -> (collection scan) -> tüm koleksiyonu tarar
+executionTimeMillis -> Yüksek bir değer dönecektir
+
+
+index oluşturma
+category alanı için indeks oluşturma
+db.product.createIndex({ category: 1})
+
+
+
+index oluşturma sonrası sorgu çalıştırma
+db.product.find({category:'Electronics'}).explain('executionStats')
+
+Beklenen çıktı
+IXSCAN (index scan) -> sadece ilgili indeks taranır
+executionTimeMillis -> önemli derecede düşüş görüllecektir.
+
+
+
+
+
+explain() -> metodu bir sorgunun nasıl çalıştırıldığını ve performansıyla ilgili detaylı bilgi verir
+executionStats         -> sorgunun nasıl çalıştırıldığına dait detaylı istatistik bilgiler verir.
+ExectionTime           -> sorgu ne kadar sürdü (tamamlanma süresini verir)
+TotalDocument Examined -> Sorgu tarafından taranan toplam belge sayısını teslim eder.
+Total Keys Examined    -> kullanılan indexlerin taradığı toplam anahtar sayısını belirtir. bu indeks kullanımı olup olmadığını ve indexlerin verimliliğini kontrol etmek için önemlidir. 
+Winning Plan           -> sorgunun yürütülmesi sırasında MongoDB'nin en verimli bulduğpu planı gösterir. Bu plan, sorgunun en hızlı be en az kaynak tüketerek şekiklde nasıl çalışacağını gösterir.
+
+
+
+yeni bir index ekleme
+db.collection.createIndex({ fieldName: 1 })   -> fieldName_1
+db.collection.createIndex({ fieldName: 1 }, { name: 'indexName' })   -> indexName
+
+
+var olan index'i silme
+db.collection.dropIndex('indexName')
+
+
+var olan index'lerin listelenmesi
+db.collection.getIndexes()
+
+
+var olan tüm index'lerin silinmesi
+db.collection.dropIndexes()
+
+
+
+birleşik index oluşturma
+
+db.product.createIndex({ category: -1, price: -1 }, { name: 'category_price_idx' })
+db.product.createIndex({ category: 1, price: 1 }, { name: 'category_price_idx' })
+db.product.createIndex({ category: 1, price: -1 }, { name: 'category_price_idx' })
+db.product.createIndex({ category: -1, price: 1 }, { name: 'category_price_idx' })
+
+1  -> artan sırada / ascending order 
+-1 -> azalan sırada  / descending order
+
+yukarıdaki indeks işleminde, kategorileri A'dan Z'ye doğru sıralayarak index oluşturdu, ismin aynı olan kategorilerin fiyatlarına görede tam tersi sırada bir index oluşturdu
+
+
+
+db.product.find({category: 'Electronics'} ).explain('executionStats')
+db.product.find({category: 'Electronics', price: {$lt: 500} }).explain('executionStats')
+
+executionTimeMillisEstimate: 55,
+executionTimeMillisEstimate: 18,
+
+db.product.createIndex({category:1, price:1}, {name:'category_price_idx'})
+
+
+db.product.find({category: 'Electronics', price: {$lt: 500} }).hint('category_index').explain('executionStats')
+
+
+Tekil index tanımlama (Unique index)
+db.users.createIndex({ email:1 } , { unique: true } , { name: "email_unique_idx" })
+
+
+
+TTL (Time to Live) index tanımlama
+createdAt alanına bağlı olarak eski kayıtları otomatik temizlemek için bit TTL index oluşturma
+
+db.product.createIndex( { createdAt: 1 }, { expireAfterSeconds: 60 } )
+
+yukarıdaki index 1 dakika sonra eski kayıtları otomatik olarak siler
+
+
+db.sessions.insertMany([
+    { sessionId:1, user:'Alice', createdAt: new Date() },
+    { sessionId:2, user:'Bob', createdAt: new Date() },
+    { sessionId:3, user:'Charlie', createdAt: new Date() },
+    { sessionId:4, user:'David', createdAt: new Date() },
+    { sessionId:5, user:'Eva', createdAt: new Date() },
+    { sessionId:6, user:'Frank', createdAt: new Date() },
+    { sessionId:7, user:'Greace', createdAt: new Date() },
+    { sessionId:8, user:'Melissa', createdAt: new Date() }
+])
+
+db.sessions.createIndex(
+    {
+        createdAt:1
+    }, 
+    {
+        expireAfterSeconds: 60, 
+        name: 'sessions_expire_idx'
+    }
+)
+
+
+Metin index oluşturma
+
+db.product.find()
+db.product.createIndex( {name : 1 } ) artan sırada
+db.product.createIndex( {name : -1 } ) azalan sırada
+
+db.product.createIndex( {name : "text", category: "text" } , { name: "name_category_text_idx" } )
+
+db.product.find({ $text: { $search: "Electronics" } }).explain('executionStats')
+
+
+
+
+Sıralama performansı için index
+
+bir sıralama sorgusunda (sort) performansını iyileştirmek için price alanına index ekleyelim
+
+db.product.createIndex( { price: 1 }, { name: 'price_idx' } )
+db.product.find({  category: "Electronics" }).sort({ price : 1 }).explain('executionStats')
+
+
+
+
+
+
+
+hint() kullanımı
+hint() metodu, MongoDB'ye bir sorgu için hangi indeksin kullanılacağını belirtir. Bu yöntem, özelikle indexkelerin kontrolü ve performans sorunlarının çözümü için kullanılır.
+
+
+bu sorguda index var ise, default index'i (category_idx) kullanacaktır
+db.collection.find({category: 'Electronics'})  
+
+
+hint metodu içerisinde vermiş olduğunuz index'i kullanır.
+db.collection.find({category: 'Electronics'}).hint("category_price_idx")
+
+index'in adını bilmiyorsanız, verilen değerleri kullanarak o index'i çalıştırabilirsiniz.
+db.collection.find( {category: 'Electronics'} ).hint( {category: 1, price: -1 } )
+
+ 
+
+  db.product.deleteMany({stock: {$lte:0}})
+
+db.products.updateMany(
+  { category: "Electronics" },
+  { $mul: { price: 1.1 } }  // öperatörü, bir alandaki mevcut değeri verilen katsayı ile çarpma işlemi yapmak için kullanılır.
+)
+
+db.product.find({  category: "Electronics" }).explain('executionStats')

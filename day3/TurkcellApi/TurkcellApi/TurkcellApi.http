@@ -1,0 +1,6 @@
+@TurkcellApi_HostAddress = http://localhost:5254/api/categories
+
+GET {{TurkcellApi_HostAddress}}
+Accept: application/json
+
+###
