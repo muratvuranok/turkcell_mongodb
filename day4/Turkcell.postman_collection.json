@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "fb1062c3-b485-4c41-abc3-28ec85c3d816",
+		"name": "Turkcell",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1436542"
+	},
+	"item": [
+		{
+			"name": "get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{category_url}}",
+					"host": [
+						"{{category_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{category_url}}/search/search?q=the",
+					"host": [
+						"{{category_url}}"
+					],
+					"path": [
+						"search",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "the"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryName\": \"The Categoriess 3\",\r\n    \"description\": \"Soft, tea\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{category_url}}",
+					"host": [
+						"{{category_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "postman-cloud:///1efad84d-e9d6-4500-8c6e-0721427ad32c"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{category_url}}/upload",
+					"host": [
+						"{{category_url}}"
+					],
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bulk",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"categoryName\": \"Test Categoriess V4\",\r\n        \"description\": \"Soft, tea\"\r\n    },\r\n    {\r\n        \"categoryName\": \"Test Categoriess V5\",\r\n        \"description\": \"Soft, tea\"\r\n    },\r\n    {\r\n        \"categoryName\": \"Test Categoriess V6\",\r\n        \"description\": \"Soft, tea\"\r\n    },\r\n    {\r\n        \"categoryName\": \"Test Categoriess V7\",\r\n        \"description\": \"Soft, tea\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{category_url}}/bulk",
+					"host": [
+						"{{category_url}}"
+					],
+					"path": [
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{category_url}}/67481d6d68f130730c4d74c0",
+					"host": [
+						"{{category_url}}"
+					],
+					"path": [
+						"67481d6d68f130730c4d74c0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryName\": \"Test Categoriess 2025\",\r\n    \"description\": \"Soft, tea\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{category_url}}/67481d6d68f130730c4d74c0",
+					"host": [
+						"{{category_url}}"
+					],
+					"path": [
+						"67481d6d68f130730c4d74c0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryName\": \"Test Categoriess 2\",\r\n    \"description\": \"Soft, tea\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{category_url}}/67481d6d68f130730c4d74c0",
+					"host": [
+						"{{category_url}}"
+					],
+					"path": [
+						"67481d6d68f130730c4d74c0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{category_url}}/67481f3d85451e3bb9e6bd0c",
+					"host": [
+						"{{category_url}}"
+					],
+					"path": [
+						"67481f3d85451e3bb9e6bd0c"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
