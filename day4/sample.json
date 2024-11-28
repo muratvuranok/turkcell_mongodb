@@ -1,0 +1,17 @@
+{
+    "user": {},
+    "categories": [],
+    "orders": []
+}
+
+
+/*
+        const user = req.body.user;
+        await User.insertOne(user);
+
+        const categories = req.body.categories;
+        await Category.insertMany(categories);
+
+        const orders = req.body.orders;
+        await Order.insertMany(orders);
+*/

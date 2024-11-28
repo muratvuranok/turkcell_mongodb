@@ -1,0 +1,13 @@
+services:
+  mongodb-replSet:
+    image: mongo:latest
+    container_name: turkcell-mongodb
+    ports:
+      - "27017:27017"
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
+    volumes:
+      - mongodb-replSet-data:/data/db
+
+
+volumes:
+  mongodb-replSet-data:
